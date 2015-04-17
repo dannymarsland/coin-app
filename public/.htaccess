@@ -1,0 +1,20 @@
+Options -Indexes
+RewriteEngine On
+
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule !\.(js|css|svg|ico|png|jpg|txt|ts|map)$ index.php [L]
+
+<FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=43200"
+    ExpiresDefault "access plus 12 hours"
+    SetOutputFilter DEFLATE
+</FilesMatch>
+
+<FilesMatch "\.(png|jpg|svg|eot|ttf|woff)$">
+    Header set Cache-Control "public, max-age=63936000"
+    ExpiresDefault "access plus 740 days"
+</FilesMatch>
+
+
