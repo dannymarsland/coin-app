@@ -31,9 +31,11 @@ var Application = (function () {
         return $(html).find(this.resultsSelector).first();
     };
     Application.prototype.showLoading = function () {
+        // @todo
         console.log('show loading....');
     };
     Application.prototype.hideLoading = function () {
+        // @todo
         console.log('hide loading....');
     };
     Application.prototype.showError = function (msg) {

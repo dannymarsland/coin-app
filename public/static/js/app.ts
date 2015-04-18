@@ -51,10 +51,12 @@ class Application {
     }
 
     private showLoading() {
+        // @todo
         console.log('show loading....');
     }
 
     private hideLoading() {
+        // @todo
         console.log('hide loading....');
     }
 
