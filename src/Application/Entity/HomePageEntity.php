@@ -36,30 +36,35 @@ class HomePageEntity extends AbstractSmartyEntity
         $errorMessage = '';
         $formattedValue = '';
         $coins = [];
-        if ($this->userValue) {
+        $hadUserInput = !is_null($this->userValue);
+        if ($hadUserInput) {
             try {
                 $currencyValue = $this->currencyService->parseValue($this->userValue, CurrencyCodes::GBP);
                 $formattedValue = number_format($currencyValue->getValue(),2);
-                try {
-                    $minimumCoins = $this->coinService->getMinimumCoinsForValue($currencyValue->getValue(),CurrencyCodes::GBP);
-                    foreach($minimumCoins as $coinAndQuantity) {
-                        /**
-                         * @var $coin Coin
-                         */
-                        $coin = $coinAndQuantity['coin'];
-                        $quantity = $coinAndQuantity['quantity'];
-                        $coins[] = [
-                            "name" => $coin->getName(),
-                            "value" => $coin->getValue(),
-                            "quantity" => $quantity,
-                            "total" => $quantity * $coin->getValue()
-                        ];
-                    }
-                } catch (\Exception $e) {
+                if ($currencyValue->getValue() < 0.01) {
                     $error = true;
-                    $errorMessage = "Sorry, an error occurred";
+                    $errorMessage = 'Please enter a minimum value of 0.01';
+                } else {
+                    try {
+                        $minimumCoins = $this->coinService->getMinimumCoinsForValue($currencyValue->getValue(),CurrencyCodes::GBP);
+                        foreach($minimumCoins as $coinAndQuantity) {
+                            /**
+                             * @var $coin Coin
+                             */
+                            $coin = $coinAndQuantity['coin'];
+                            $quantity = $coinAndQuantity['quantity'];
+                            $coins[] = [
+                                "name" => $coin->getName(),
+                                "value" => $coin->getValue(),
+                                "quantity" => $quantity,
+                                "total" => $quantity * $coin->getValue()
+                            ];
+                        }
+                    } catch (\Exception $e) {
+                        $error = true;
+                        $errorMessage = "Sorry, an error occurred";
+                    }
                 }
-
             } catch (\Exception $e) {
                 $error = true;
                 $errorMessage = "Please enter a valid value";
@@ -71,7 +76,8 @@ class HomePageEntity extends AbstractSmartyEntity
             'error' => $error,
             'errorMessage' => $errorMessage,
             'formattedValue' => $formattedValue,
-            'coins' => $coins
+            'coins' => $coins,
+            'hadUserInput' => $hadUserInput
         ];
     }
 
