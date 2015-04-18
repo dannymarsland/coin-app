@@ -22,6 +22,7 @@
                 <h1>Coin App</h1>
             </header>
             <div class="jumbotron">
+                <h2>Please enter a value</h2>
                 <form action="/" method="get">
                     <label>
                         Value: <input id="user-value" name="value" type="text" value="{$userValue}"/>
@@ -37,7 +38,13 @@
                         <p>{$errorMessage}</p>
                     {else}
                         <h2>Results</h2>
-                        <p>User entered £{$formattedValue}</p>
+                        <p>User entered £{$formattedValue}. The minimum coins are:</p>
+                        <ul>
+                            {foreach $coins as $coin}
+                                <li><p>{$coin.quantity} x {$coin.name} ( £{$coin.value} ) = £{$coin.total}</p></li>
+                            {/foreach}
+
+                        </ul>
                     {/if}
                 </div>
             {/if}
