@@ -8,6 +8,7 @@ class CoinCalculatorTest extends UnitTestCase
 {
     public function test()
     {
+        // a list of coins available for the test. purposely out of order
         $coins = [
             new Coin("£1",1.00),
             new Coin("50p",0.50),
@@ -19,6 +20,7 @@ class CoinCalculatorTest extends UnitTestCase
             new Coin("10p",0.10),
         ];
 
+        // a structure of tests to run through and the expected results
         $tests = [
             [
                 "value" => 10.00,
@@ -109,12 +111,14 @@ class CoinCalculatorTest extends UnitTestCase
             $expectedCoins = $test['coins'];
             $value = $test['value'];
             $minimumCoins = $coinCalculator->getMinimumCoins($value);
+            // ensure the same number of coin types are given
             $this->assertIdentical(count($minimumCoins), count($expectedCoins), "Incorrect number of coins calculated for '£$value'");
             $numberOfCoins = count($minimumCoins);
             if ($numberOfCoins == count($expectedCoins)) {
                 for($i =0; $i < $numberOfCoins; $i++) {
                     /** @var $coin Coin */
                     $coin = $minimumCoins[$i]['coin'];
+                    // check the quantity and the coin value
                     $this->assertIdentical($expectedCoins[$i]['quantity'], $minimumCoins[$i]['quantity'] );
                     $this->assertIdentical($expectedCoins[$i]['value'], $coin->getValue());
                 }

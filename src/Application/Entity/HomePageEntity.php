@@ -18,7 +18,7 @@ class HomePageEntity extends AbstractSmartyEntity
     /**
      * @param CurrencyService $currencyService
      * @param CoinService $coinService
-     * @param null $userValue
+     * @param string $userValue
      */
     public function __construct(CurrencyService $currencyService, CoinService $coinService, $userValue = null)
     {
@@ -37,16 +37,21 @@ class HomePageEntity extends AbstractSmartyEntity
         $formattedValue = '';
         $coins = [];
         $hadUserInput = !is_null($this->userValue);
+        // if we have had user input then try calculate the results
         if ($hadUserInput) {
             try {
+                // get the correct currency value. currently only supporting GBP
                 $currencyValue = $this->currencyService->parseValue($this->userValue, CurrencyCodes::GBP);
+                // a nicely formatted value string to present to the user
                 $formattedValue = number_format($currencyValue->getValue(),2);
+                // don't allow too small values
                 if ($currencyValue->getValue() < 0.01) {
                     $error = true;
                     $errorMessage = 'Please enter a minimum value of 0.01';
                 } else {
                     try {
-                        $minimumCoins = $this->coinService->getMinimumCoinsForValue($currencyValue->getValue(),CurrencyCodes::GBP);
+                        // calculate the correct coins and prepare the data for templating
+                        $minimumCoins = $this->coinService->getMinimumCoinsForValue($currencyValue->getValue(),$currencyValue->getCurrencyCode());
                         foreach($minimumCoins as $coinAndQuantity) {
                             /**
                              * @var $coin Coin
@@ -70,7 +75,7 @@ class HomePageEntity extends AbstractSmartyEntity
                 $errorMessage = "Please enter a valid value";
             }
         }
-
+        // return the data for templating
         return [
             'userValue' => $this->userValue,
             'error' => $error,
