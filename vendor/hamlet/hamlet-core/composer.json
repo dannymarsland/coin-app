@@ -1,0 +1,31 @@
+{
+    "name": "hamlet/hamlet-core",
+    "type": "library",
+    "description": "hamlet framework",
+    "keywords": ["framework"],
+    "authors": [
+        {
+            "name": "Vasily Kartashov",
+            "email": "vasily@kartashov.com"
+        },
+        {
+            "name": "Danny Marsland",
+            "email": "danny.marsland@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "twig/twig": "dev-master",
+        "smarty/smarty": "3.1.21",
+        "simpletest/simpletest": "dev-master",
+        "symfony/console": "2.6.0",
+        "phpoffice/phpexcel": "dev-master",
+        "google/apiclient": "1.0.*@dev"
+    },
+    "autoload": {
+        "classmap": [
+            "src/",
+            "test/"
+        ]
+    }
+}

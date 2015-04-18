@@ -1,7 +1,7 @@
 /.idea/*
 /.vagrant/*
 /composer.lock
-#/vendor/*
+
 .sass-cache
 node_modules
 #public/static
