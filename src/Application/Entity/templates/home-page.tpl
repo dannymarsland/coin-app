@@ -29,6 +29,18 @@
                     <input type="submit" value="Calculate"/>
                 </form>
             </div>
+
+            {if $userValue}
+                <div class="jumbotron">
+                    {if $error}
+                        <h2>Error</h2>
+                        <p>{$errorMessage}</p>
+                    {else}
+                        <h2>Results</h2>
+                        <p>User entered £{$formattedValue}</p>
+                    {/if}
+                </div>
+            {/if}
         </div>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     </body>

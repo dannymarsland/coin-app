@@ -2,18 +2,23 @@
 
 namespace Application\Entity;
 
+use Application\Service\Currency\CurrencyCodes;
+use Application\Service\Currency\CurrencyService;
 use Hamlet\Entity\AbstractSmartyEntity;
 
 class HomePageEntity extends AbstractSmartyEntity
 {
 
     private $userValue;
+    private $currencyService;
 
     /**
+     * @param CurrencyService $currencyService
      * @param string $userValue
      */
-    public function __construct($userValue = null)
+    public function __construct($currencyService, $userValue = null)
     {
+        $this->currencyService = $currencyService;
         $this->userValue = $userValue;
     }
 
@@ -22,8 +27,24 @@ class HomePageEntity extends AbstractSmartyEntity
      */
     public function getTemplateData()
     {
+        $error = null;
+        $errorMessage = '';
+        $formattedValue = '';
+        if ($this->userValue) {
+            try {
+                $currencyValue = $this->currencyService->parseValue($this->userValue, CurrencyCodes::GBP);
+                $formattedValue = number_format($currencyValue->getValue(),2);
+            } catch (\Exception $e) {
+                $error = true;
+                $errorMessage = "Please enter a valid value";
+            }
+        }
+
         return [
-            'userValue' => $this->userValue
+            'userValue' => $this->userValue,
+            'error' => $error,
+            'errorMessage' => $errorMessage,
+            'formattedValue' => $formattedValue
         ];
     }
 
