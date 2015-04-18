@@ -66,6 +66,14 @@ class GBPCurrencyParserTest extends UnitTestCase {
             [
                 "text" => "£1.2574224457p",
                 "value" => 1.26
+            ],
+            [
+                "text" => "0",
+                "value" => 0.0
+            ],
+            [
+                "text" => "0.0",
+                "value" => 0.0
             ]
         ];
 
