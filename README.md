@@ -39,5 +39,5 @@ Please note, for speed of development no task runners have been used on this pro
 
 ## Issues
 
-The task took longer than the allocated 3hours. This was mainly to do with file encoding and character encoding problems with the '£' symbol, and oversight of accuracy issues when dealing with floats: http://php.net/manual/en/language.types.float.php . In hindsight dealing with floats may not have been the best choice. Originally it was chosen to do so to keep validity of the CurrencyValue object - with the value being the correct value for the currency code provided, and a value of a lower currency unit - eg pence to GBP.
+The task took longer than the allocated 3 hours. This was mainly to do with file encoding and character encoding problems with the '£' symbol, and oversight of accuracy issues when dealing with floats: http://php.net/manual/en/language.types.float.php . In hindsight dealing with floats may not have been the best choice. Originally it was chosen to do so to keep validity of the CurrencyValue object - with the value being the correct value for the currency code provided, and not a value of a lower currency unit - eg pence to GBP.
 
