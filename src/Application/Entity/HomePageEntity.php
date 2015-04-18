@@ -16,7 +16,7 @@ class HomePageEntity extends AbstractSmartyEntity
      * @param CurrencyService $currencyService
      * @param string $userValue
      */
-    public function __construct($currencyService, $userValue = null)
+    public function __construct(CurrencyService $currencyService, $userValue = null)
     {
         $this->currencyService = $currencyService;
         $this->userValue = $userValue;

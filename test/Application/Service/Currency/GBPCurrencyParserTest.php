@@ -74,7 +74,6 @@ class GBPCurrencyParserTest extends UnitTestCase {
             "1x",
             "£1x.0p",
             "£p",
-            "£2.00"
         ];
         foreach( $validInputs as $input) {
             $value = $parser->parseValue($input['text']);

@@ -47,7 +47,6 @@ class GBPCurrencyParser extends AbstractCurrencyParser {
         $trimEnd = 0;
         if ($beginsWithPoundSign) {
             $trimStart += strlen($symbol);
-            echo strlen($symbol);
         }
         if ($endsWithPence) {
             $trimEnd++;
