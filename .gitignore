@@ -1,11 +1,9 @@
 /.idea/*
 /.vagrant/*
 /composer.lock
-/vendor/*
+#/vendor/*
 .sass-cache
 node_modules
 #public/static
-assets/typescript/**/*.js
-assets/typescript/**/*.js.map
 logs/
 !logs/.gitkeep
